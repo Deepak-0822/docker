@@ -1,13 +1,11 @@
-# Stage 1: Build the Angular application
-FROM node:20-alpine AS builder
-WORKDIR /app
-COPY package*.json ./
-RUN npm install
-COPY . .
-RUN npm run build -- --prod
+# Start from official OpenJDK image
+FROM openjdk:17-jdk-slim
 
-# Stage 2: Serve the built application with Nginx
-FROM nginx:alpine
-COPY --from=builder /app/dist/my-sample-app/browser /usr/share/nginx/html
-EXPOSE 80
-CMD ["nginx", "-g", "daemon off;"]
+# Set working directory
+WORKDIR /app
+
+# Copy and build the app
+COPY target/springboot-docker-demo-0.0.1-SNAPSHOT.jar app.jar
+
+# Run the app
+ENTRYPOINT ["java", "-jar", "app.jar"]
