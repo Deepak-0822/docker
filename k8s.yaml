@@ -1,25 +1,25 @@
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: my-namespace
+  name: frontend-app
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: my-app
-  namespace: my-namespace
+  name: app1
+  namespace: frontend-app
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: my-app
+      app: app1
   template:
     metadata:
       labels:
-        app: my-app
+        app: app1
     spec:
       containers:
-        - name: my-container
+        - name: app-container
           image: your-docker-image:tag  # Replace with your image
           ports:
             - containerPort: 5000       # Change to 8080 or 80 for Java apps
@@ -42,11 +42,11 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: my-app-service
-  namespace: my-namespace
+  name: app-service
+  namespace: frontend-app
 spec:
   selector:
-    app: my-app
+    app: app1
   ports:
     - protocol: TCP
       port: 80
