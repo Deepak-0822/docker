@@ -1,30 +1,30 @@
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: test-app
+  name: redis-app
+  namespace: test
 spec:
-  serviceName: "test-service"
-  replicas: 1
+  serviceName: "redis-service"
+  replicas: 3
   selector:
     matchLabels:
-      app: test-app
+      app: redis-app
   template:
     metadata:
       labels:
-        app: test-app
+        app: redis-app
     spec:
       containers:
-      - name: test-container
-        image: nginx:latest
+      - name: redis-container
+        image: redis:latest
         ports:
-        - containerPort: 80
-          name: http
+        - containerPort: 6379
         volumeMounts:
-        - name: test-storage
-          mountPath: /usr/share/nginx/html
+        - name: test-pvc
+          mountPath: /usr/share/html
   volumeClaimTemplates:
   - metadata:
-      name: test-storage
+      name: test-pvc
     spec:
       accessModes: ["ReadWriteOnce"]
       resources:
