@@ -22,3 +22,21 @@ spec:
   resources:
     requests:
       storage: 1Gi
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pv-recycler
+  namespace: test
+spec:
+  restartPolicy: Never
+  volumes:
+  - name: test-vol
+    persistentVolumeClaim:
+      claimName: test-pvc
+  containers:
+  - name: pv-recycler
+    image: "registry.k8s.io/busybox"
+    volumeMounts:
+    - name: test-vol
+      mountPath: /scrub
