@@ -94,3 +94,7 @@ Running databases (e.g., Cassandra, MongoDB, RabbitMQ).
 Deploying apps that need persistent identity and storage.
 
 Ensures ordered deployment and scaling.# docker
+
+
+"AKIAW5WU5EDQB3IFSZQK"
+"4bbCKdj1OQxWd9u1zOB1jXwjUQNht23BPcUTulr/"
